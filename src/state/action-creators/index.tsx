@@ -2,7 +2,7 @@ import axios from "axios";
 import { ActionsType } from "../action-types";
 import { Dispatch } from "redux";
 import { Action } from "../actions";
-const searchRepo = (term: string) => {
+export const searchRepo = (term: string) => {
   return async (dispatch: Dispatch<Action>) => {
     dispatch({
       type: ActionsType.SEARCH_REPO,
@@ -28,4 +28,4 @@ const searchRepo = (term: string) => {
   };
 };
 
-export default searchRepo;
+// export default searchRepo;
