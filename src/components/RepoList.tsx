@@ -1,15 +1,13 @@
 import React, { useState } from "react";
+import { useTypeSelector } from "../hooks/useTypeSelector";
 import { useDispatch } from "react-redux";
-// import { actionCreators } from "../state";
 import { useActions } from "../hooks/useActions";
-import { useSelector } from "react-redux";
 
 export const RepoList = () => {
   const [term, setTerm] = useState("");
   // const dispatch = useDispatch();
   const { searchRepo } = useActions();
-  // const { data, error, loading } = useSelector((state) => state.repo);
-  // console.log(state);
+  const { data, error, loading } = useTypeSelector((state) => state.repo);
   const onsubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     searchRepo(term);
@@ -20,6 +18,13 @@ export const RepoList = () => {
         <input onChange={(e) => setTerm(e.target.value)} value={term} />
         <button>search</button>
       </form>
+      {error && <h3>{error}</h3>}
+      {loading && <h3>loading...</h3>}
+      {!error &&
+        !loading &&
+        data.map((name) => {
+          return <div key={name}>{name}</div>;
+        })}
     </div>
   );
 };
